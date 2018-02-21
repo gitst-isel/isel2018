@@ -66,5 +66,5 @@ baliza (void* ignore)
 void user_init(void)
 {
     xTaskHandle task;
-    xTaskCreate (baliza, "startup", 2048, NULL, 1, &task);
+    xTaskCreate (baliza, "baliza", 2048, NULL, 1, &task);
 }
