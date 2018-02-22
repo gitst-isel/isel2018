@@ -1,4 +1,6 @@
-# Ejercicio 7: Alarma con código
+# Ejercicio 8: Alarma con código simplificada
+
+Repetir el ejercicio 7 pero con máquinas de estado extendidas (se permiten variables).
 
 Utilizar un pulsador para introducir un código de activación y desactivación de la alarma.
 
