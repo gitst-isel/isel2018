@@ -60,12 +60,18 @@ static volatile int button = 0;
 static void
 io_intr_handler (void)
 {
-    uint32 status = GPIO_REG_READ (GPIO_STATUS_ADDRESS);
-    /* status & GPIO_Pin_4  or  status & GPIO_Pin_5 */
-    button = 1;
+  static portTickType debounce_timeout;
+  portTickType now = xTaskGetTickCount();
+  uint32 status = GPIO_REG_READ (GPIO_STATUS_ADDRESS);
+  /* status & GPIO_Pin_4  or  status & GPIO_Pin_5 */
 
-    /* rearm interrupts */
-    GPIO_REG_WRITE (GPIO_STATUS_W1TC_ADDRESS, status);
+  if (now >= debounce_timeout) {
+      debounce_timeout = now + (200 /portTICK_RATE_MS);
+      button = 1;
+  }
+
+  /* rearm interrupts */
+  GPIO_REG_WRITE (GPIO_STATUS_W1TC_ADDRESS, status);
 }
 
 static void
